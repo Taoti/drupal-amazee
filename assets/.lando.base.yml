@@ -1,0 +1,18 @@
+recipe: lagoon
+config:
+  flavor: drupal
+env_file:
+  - .lagoon.env
+
+services:
+  appserver:
+    webroot: web
+    type: php:7.4
+    overrides:
+      environment:
+        PHP_IDE_CONFIG: serverName=localhost
+        XDEBUG_MODE: debug
+        XDEBUG_SESSION: PHPSTORM
+      volumes:
+        - ${HOME}/.lando/composer_cache:/var/www/.composer
+

@@ -1,0 +1,35 @@
+docker-compose-yaml: docker-compose.yml
+project: SITENAME
+
+tasks:
+  post-rollout:
+    - run:
+        name: Sync DB and Files from master if we are not on master
+        command: |
+          if [[ "$LAGOON_GIT_BRANCH" != "main" ]]; then
+            # Only if we don't have a database yet
+            if tables=$(drush sqlq 'show tables;') && [ -z "$tables" ]; then
+                drush sql-sync @lagoon.SITENAME-main @self
+                drush rsync @lagoon.SITENAME-main:%files @self:%files -- --omit-dir-times --no-perms --no-group --no-owner --chmod=ugo=rwX
+            fi
+          fi
+        service: cli
+    - run:
+        name: Database update, config sync and caches cleaning
+        command: |
+          if [[ "$LAGOON_GIT_BRANCH" != "main" ]]; then
+            drush cr
+            drush updb -y
+            drush cr
+            drush cim -y
+            drush cr
+          fi
+        service: cli
+
+environments:
+  main:
+    cronjobs:
+      - name: drush cron
+        schedule: "*/15 * * * *"
+        command: drush cron
+        service: cli

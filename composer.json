@@ -1,0 +1,49 @@
+{
+    "name": "taoti/drupal-amazee",
+    "description": "Taoti ops files -- for Amazee + Drupal 8+.",
+    "type": "project",
+    "license": "MIT",
+    "conflict": {
+        "drupal/core": "<8.0"
+    },
+    "require": {
+        "amazeeio/drupal_integrations": "*"
+    },
+    "extra": {
+        "drupal-scaffold": {
+            "file-mapping": {
+                "[project-root]/lagoon/cli.dockerfile": {
+                    "mode": "replace",
+                    "path": "assets/lagoon/cli.dockerfile",
+                    "overwrite": false
+                },
+                "[project-root]/lagoon/drush-override.yml": "assets/lagoon/drush-override.yml",
+                "[project-root]/lagoon/nginx.dockerfile": "assets/lagoon/nginx.dockerfile",
+                "[project-root]/lagoon/php.dockerfile": "assets/lagoon/php.dockerfile",
+                "[project-root]/lagoon/redirects-map.conf": {
+                    "mode": "replace",
+                    "path": "assets/lagoon/redirects-map.conf",
+                    "overwrite": false
+                },
+                "[project-root]/lagoon/solr.dockerfile": "assets/lagoon/solr.dockerfile",
+                "[project-root]/.lagoon.env": "assets/.lagoon.env",
+                "[project-root]/.lagoon.yml": {
+                    "mode": "replace",
+                    "path": "assets/.lagoon.yml",
+                    "overwrite": false
+                },
+                "[project-root]/.lando.base.yml": "assets/.lando.base.yml",
+                "[project-root]/.lando.yml": {
+                    "mode": "replace",
+                    "path": "assets/.lando.yml",
+                    "overwrite": false
+                },
+                "[project-root]/docker-compose.yml": {
+                    "mode": "replace",
+                    "path": "assets/docker-compose.yml",
+                    "overwrite": false
+                }
+            }
+		}
+    }
+}

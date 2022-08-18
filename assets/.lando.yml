@@ -1,0 +1,13 @@
+name: SITENAME
+config:
+  site: SITENAME
+
+tooling:
+  npm:
+    service: nodebuilder
+    cmd: npm
+    dir: /app/web/themes/SITENAME
+  gulp:
+    service: nodebuilder
+    cmd: gulp
+    dir: /app/web/themes/SITENAME
