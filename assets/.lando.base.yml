@@ -7,7 +7,7 @@ env_file:
 services:
   appserver:
     webroot: web
-    type: php:7.4
+    type: php:8.2
     overrides:
       environment:
         PHP_IDE_CONFIG: serverName=localhost
