@@ -42,7 +42,12 @@
                     "mode": "replace",
                     "path": "assets/docker-compose.yml",
                     "overwrite": false
-                }
+                },
+                "[project-root]/.env": {
+                    "mode": "replace",
+                    "path": "assets/.env",
+                    "overwrite": false
+                },
             }
 	}
     }

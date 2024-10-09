@@ -4,10 +4,10 @@ config:
 
 tooling:
   npm:
-    service: nodebuilder
+    service: cli
     cmd: npm
     dir: /app/web/themes/SITENAME
   gulp:
-    service: nodebuilder
+    service: cli
     cmd: gulp
     dir: /app/web/themes/SITENAME

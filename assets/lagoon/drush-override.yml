@@ -1,5 +1,5 @@
 # Lagoon global drush.yml file
-# This file tells Drush 9 about the lagoon environment
+# This file tells Drush about the lagoon environment
 
 options:
   root: '/app/${env.WEBROOT}'

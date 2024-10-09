@@ -9,9 +9,7 @@ x-volumes:
 x-environment:
   &default-environment
     # Route that should be used locally, if you are using pygmy, this route *must* end with .docker.amazee.io
-    LAGOON_ROUTE: &default-url http://SITENAME.docker.amazee.io
-    COMPOSER_VERSION: '2.0.4'
-    COMPOSER_HASH_SHA256: '1cdc74f74965908d0e98d00feeca37c23b86da51170a3a11a1538d89ff44d4dd'
+    LAGOON_ROUTE: &default-url http://${COMPOSE_PROJECT_NAME:-taoti-amazee}.docker.amazee.io
     # Uncomment if you like to have the system behave like in production
     #LAGOON_ENVIRONMENT_TYPE: production
     # Uncomment to enable xdebug and then restart via `docker-compose up -d`
@@ -34,7 +32,7 @@ services:
     build:
       context: .
       dockerfile: lagoon/cli.dockerfile
-    image: &cli-image SITENAME-cli # this image will be reused as `CLI_IMAGE` in subsequent Docker builds
+    image: &cli-image ${COMPOSE_PROJECT_NAME:-taoti-amazee}.-cli # this image will be reused as `CLI_IMAGE` in subsequent Docker builds
     labels:
       # Lagoon Labels
       lagoon.type: cli-persistent
@@ -92,7 +90,7 @@ services:
       << : *default-environment # loads the defined environment variables from the top
 
   mariadb:
-    image: uselagoon/mariadb-drupal:latest
+    image: uselagoon/mysql-8.0:latest
     labels:
       lagoon.type: mariadb
       lando.type: mariadb-drupal
@@ -101,16 +99,9 @@ services:
     << : *default-user # uses the defined user from top
     environment:
       << : *default-environment
-
-  nodebuilder:
-    env_file:
-      - .lagoon.env
-    profiles:
-      - nodebuilder # setup a profile so that the node builder doesn't run by default
-    image: uselagoon/node-14-builder
-    labels:
-      lagoon.type: none
-    << : *default-volumes # loads the defined volumes from the top
+      MYSQL_DATABASE: drupal
+      MYSQL_USER: drupal
+      MYSQL_PASSWORD: drupal
 
   redis:
     image: amazeeio/redis:6-latest
@@ -135,6 +126,8 @@ services:
       - cli
     environment:
       << : *default-environment
+    volumes:
+      - search:/var/solr
 
 networks:
   amazeeio-network:
