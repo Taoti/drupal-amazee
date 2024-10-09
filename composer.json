@@ -47,7 +47,7 @@
                     "mode": "replace",
                     "path": "assets/.env",
                     "overwrite": false
-                },
+                }
             }
 	}
     }
