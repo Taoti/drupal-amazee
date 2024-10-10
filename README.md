@@ -28,3 +28,10 @@ should be committed.
     }
 }
 ```
+
+## Authenticating with GitHub
+To avoid GitHub api limits for composer installs or to access specific private repositories you can authenticate with GitHub for the Amazee build process.
+
+* Create [Fine grained GitHub Token](https://github.blog/security/application-security/introducing-fine-grained-personal-access-tokens-for-github/) with only permissions necessary - probably `Read access to code and metadata`.
+* Add to project environment variables as GITHUB_ACCESS.
+* CLI dockerfile will now automaticallys use the token.
