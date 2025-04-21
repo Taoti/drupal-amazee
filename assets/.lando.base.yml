@@ -21,3 +21,7 @@ services:
         XDEBUG_SESSION: PHPSTORM
       volumes:
         - ${HOME}/.lando/composer_cache:/var/www/.composer
+  mariadb:
+    build_as_root:
+      # Actually using mysql image and tini executable is in a different location.
+      - ln -s /usr/bin/tini /sbin/tini
